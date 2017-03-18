@@ -5,7 +5,7 @@ from flask import Flask
 app = Flask(__name__)
 
 
-ipdb.set_trace()
+# ipdb.set_trace() #for debug
 print(rh.nodePort)
 
 
@@ -17,7 +17,4 @@ def hello():
 
 if __name__ == "__main__":
     app.run()
-
-#node --require ts-node/register src/App.ts
-
 
