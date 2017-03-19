@@ -1,6 +1,6 @@
 #server refers to mojio's api
 apiURL = 'https://api.moj.io/v2/'
-authToken = 'Bearer 70c22344-e864-45e1-be1c-8b20db5cfb39'
+authToken = 'Bearer 8f274337-7642-4ed5-8f8d-727938d61035'
 
 #db stuff
 dbName = 'fabshare'

@@ -39,17 +39,70 @@ def createTestDB():
     globals.__conn.close()
     return returnVal
 
-def getTestData():
-    print(globals.__conn)
-    # Open a cursor to perform database operations
+def insertEmail(userEmail):
     cur = globals.__conn.cursor()
-    # Query the database and obtain data as Python objects
-    cur.execute("SELECT * FROM test;")
-    returnVal = cur.fetchone()
-    # returns cur.execute("SELECT * FROM test;")
-    # ipdb.set_trace()
+
+    # string = "INSERT INTO human (email) VALUES ('test@test.com')"
+    # cur.execute(string)
+    try:
+        cur.execute("INSERT INTO human (email) VALUES (%s)", (userEmail,)) #super hacky
+    except:
+        print("Email already exists in the db")
+
+    globals.__conn.commit()
+
     cur.close()
-    return returnVal
+    return
+
+def insertVehicles(filteredTrips, userEmail):
+    cur = globals.__conn.cursor()
+
+    vidList = set()
+    for trip in filteredTrips:
+        vidList.add(trip["vid"])
+
+    for vid in vidList:
+        try:
+            print("%s %s" % (vid, userEmail))
+            cur.execute("INSERT INTO vehicle (vid, email) VALUES (%s, %s)", (vid, userEmail))
+        except:
+            print("Vehicle already exists in the db")
+
+    globals.__conn.commit()
+
+    cur.close()
+    return
+
+def insertTrips(filteredTrips, userEmail):
+    cur = globals.__conn.cursor()
+
+    #   tid   VARCHAR(64) PRIMARY KEY,
+    #   vid   VARCHAR(64) REFERENCES vehicle (vid),
+    #   email VARCHAR(64) REFERENCES human (email),
+    #   startCity VARCHAR(64),
+    #   endCity VARCHAR(64),
+    #   distance REAL,
+    #   efficiency REAL,
+    #   date TIMESTAMP
+
+
+    for trip in filteredTrips:
+        try:
+            print( "%s, %s, %s, %s, %s, %s, %s, %s)",
+            (trip["tid"], trip["vid"], userEmail, trip["startCity"], trip["endCity"],
+             trip["distance"], trip["efficiency"], trip["startTimestamp"]))
+
+            cur.execute("INSERT INTO trip (tid, vid, email, startCity, endCity, distance, efficiency, date) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                        (trip["tid"], trip["vid"], userEmail, trip["startCity"], trip["endCity"], trip["distance"], trip["efficiency"], trip["startTimestamp"]))
+
+        except:
+            print("Trip already exists in the db")
+
+    globals.__conn.commit()
+
+    cur.close()
+    return
+
 
 def init():
     # Connect to an existing database
