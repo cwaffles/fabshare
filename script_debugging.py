@@ -1,10 +1,12 @@
 import rh
 import ipdb
-from flask import Flask
-app = Flask(__name__)
+
 
 
 trips = rh.loader()
+
+#myTrip = 0
+#fuelConsumed = trips['Data'][myTrip]['StartFuelLevel']['Value'] - trips['Data'][0]['EndFuelLevel']['Value']
 
 rh.getEvents('dfa04b28-3882-49a9-8cb6-8fd6f6163885')
 

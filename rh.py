@@ -29,9 +29,20 @@ def getEvents(tripID):
 def loader():
     print(getAllTrips())
     tripsJSON = getAllTrips()
+    allRelData = []
     for trip in tripsJSON["Data"]:
-        print(trip["StartLocation"])
-
+        #Trip ID // Start City // End City // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
+        relevantDataList = [trip["Id"],
+                            trip["StartLocation"]["Address"]["City"],
+                            trip["StartLocation"]["Address"]["City"],
+                            trip["Distance"]["Value"],
+                            trip["FuelEfficiency"]["Value"],
+                            trip["VehicleId"]]
+        #Print statement - replace with insert?
+        print(relevantDataList)
+        allRelData.append(relevantDataList)
+    #Can also insert all the compiled data here
+    print(allRelData)
 
 
 
