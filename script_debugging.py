@@ -1,9 +1,11 @@
 import rh
+import views
 import ipdb
 
 
 
 trips = rh.loader()
+views.generateHomePage(trips)
 
 #myTrip = 0
 #fuelConsumed = trips['Data'][myTrip]['StartFuelLevel']['Value'] - trips['Data'][0]['EndFuelLevel']['Value']
