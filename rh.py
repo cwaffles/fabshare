@@ -22,7 +22,21 @@ def getAllTrips():
 def getEvents(tripID):
     url = apiURL + 'trips/' + tripID + '/history/states?top=9999'
     response = json.loads(getFromAPI(url))
+    print(type(response))
     return response
+
+
+def loader():
+    print(getAllTrips())
+    tripsJSON = getAllTrips()
+    for trip in tripsJSON["Data"]:
+        print(trip["StartLocation"])
+
+
+
+
+
+##def get
 
 
 
