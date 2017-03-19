@@ -13,14 +13,14 @@ def getFromAPI(url):
     print(url)
     return requests.get(url, headers=headers).content
 
-def getTrips():
+def getAllTrips():
     endpoint = 'trips'
     url = apiURL + endpoint
     response = json.loads(getFromAPI(url))
     return response
 
 def getEvents(tripID):
-    url = apiURL + 'trips/' + tripID + '/history/states'
+    url = apiURL + 'trips/' + tripID + '/history/states?top=9999'
     response = json.loads(getFromAPI(url))
     return response
 
