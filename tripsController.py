@@ -1,8 +1,8 @@
 import globals
+import view
 
-
-def index():
-    return 'trips homepage'
+def index(id):
+    return view.generateTripPage(id)
 
 def init():
     return

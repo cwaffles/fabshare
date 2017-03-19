@@ -3,7 +3,10 @@ import homePageController
 import email
 import smtplib
 
-from flask import Flask, render_template, request
+
+
+from flask import Flask, request, render_template, jsonify
+
 app = Flask(__name__)
 
 @app.route("/")
@@ -17,6 +20,18 @@ def tripsIndex():
 @app.route("/vehicles/")
 def vehiclesIndex():
     return rh.vehiclesIndex()
+
+@app.route("/tripsCostPage/")
+def blank():
+    id = request.args.get('id', '')
+    return rh.getTripPage(id)
+
+#
+# @app.route("/emailLoader/")
+# def vehiclesIndex():
+#     return rh.vehiclesIndex()
+#
+
 
 
 def sendCostEmail(emailadd, fuelUsed, costEst, personName):

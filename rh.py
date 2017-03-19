@@ -13,8 +13,8 @@ def initAll():
 def getIndex():
     return homePageController.index()
 
-def tripsIndex():
-    return tripsController.index()
+def getTripPage(id):
+    return tripsController.index(id)
 
 def getTrips():
     return str(tripsController.index())
