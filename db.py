@@ -107,7 +107,7 @@ def insertTrips(filteredTrips, userEmail):
 def init():
     # Connect to an existing database
     if globals.__conn is None:
-        globals.__conn = psycopg2.connect("dbname=%s user=%s" % (globals.dbName, globals.dbUser))
+        globals.__conn = psycopg2.connect("dbname=%s user=%s password=Ledra1234" % (globals.dbName, globals.dbUser))
 
 
 def shutdown():

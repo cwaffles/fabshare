@@ -6,7 +6,7 @@ import globals
 import db
 import view
 
-junkEmail = "test@test.com"
+junkEmail = "a@a.com"
 
 def init():
     #do all the data loading here
@@ -15,8 +15,9 @@ def init():
 
 
 def index():
-    tripSummaries = getTripSummaries(junkEmail)
 
+    tripSummaries = getTripSummaries(junkEmail)
+    print(tripSummaries)
     return view.generateHomePage(tripSummaries)
 
 def getTripSummaries(userEmail):
@@ -24,13 +25,29 @@ def getTripSummaries(userEmail):
 
     # Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
     cur.execute("SELECT tid, startCity, endCity, date, distance, efficiency, vid FROM Trip "
-                "NATURAL JOIN human WHERE human.email = %s", (userEmail))
+                "NATURAL JOIN human WHERE human.email = %s", (userEmail,))
 
     returnVal = cur.fetchall()
     globals.__conn.commit()
 
     cur.close()
+    print (returnVal)
     return returnVal
+
+def getTripSingleSummary(tripID):
+    cur = globals.__conn.cursor()
+
+    # Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
+    cur.execute("SELECT tid, startCity, endCity, date, distance, efficiency, vid FROM Trip "
+                "WHERE tid = %s", (tripID,))
+
+    returnVal = cur.fetchone()
+    globals.__conn.commit()
+
+    cur.close()
+    print (returnVal)
+    return returnVal
+
 
 
 #helper function to make http request
