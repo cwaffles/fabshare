@@ -6,7 +6,7 @@ def getID():
     # Open a cursor to perform database operations
     cur = globals.__conn.cursor()
     # Query the database and obtain data as Python objects
-    cur.execute("SELECT id FROM test;")
+    cur.execute("SELECT * FROM human;")
     returnVal = cur.fetchone()
     # returns cur.execute("SELECT * FROM test;")
     # ipdb.set_trace()
@@ -14,8 +14,7 @@ def getID():
     return returnVal
 
 def createTestDB():
-    returnVal = None
-    # conn = psycopg2.connect("dbname=%s user=%s" % (globals.dbName, globals.dbUser))
+        # conn = psycopg2.connect("dbname=fabshare user=postgres")
 
     # Open a cursor to perform database operations
     cur = globals.__conn.cursor()
@@ -55,7 +54,7 @@ def getTestData():
 def init():
     # Connect to an existing database
     if globals.__conn is None:
-        globals.__conn = psycopg2.connect("dbname=%s user=%s" % (globals.dbUser, globals.dbUser))
+        globals.__conn = psycopg2.connect("dbname=%s user=%s" % (globals.dbName, globals.dbUser))
 
 
 def shutdown():
