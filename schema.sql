@@ -10,7 +10,12 @@ CREATE TABLE vehicle (
 CREATE TABLE trip (
   tid   VARCHAR(64) PRIMARY KEY,
   vid   VARCHAR(64) REFERENCES vehicle (vid),
-  email VARCHAR(64) REFERENCES human (email)
+  email VARCHAR(64) REFERENCES human (email),
+  startCity VARCHAR(64),
+  endCity VARCHAR(64),
+  distance REAL,
+  efficiency REAL,
+  date TIMESTAMP
 );
 
 CREATE TABLE event (
