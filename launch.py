@@ -1,24 +1,27 @@
-# from .rh import *
 import rh
-import ipdb
 from flask import Flask
 app = Flask(__name__)
 
-
-
-
-
-
-# ipdb.set_trace() #for debug
-print(rh.nodePort)
-
-
-initialized = False
-
 @app.route("/")
-#def hello():
- #   return "Hello World!"
+def hello():
+    return rh.getIndex()
+
+@app.route("/trips/")
+def tripsIndex():
+    return rh.tripsIndex()
+
+@app.route("/vehicles/")
+def vehiclesIndex():
+    return rh.vehiclesIndex()
+
+
+@app.route("/vehicles/")
+def vehiclesIndex():
+    return rh.vehiclesIndex()
+
+@app.before_first_request
+def init():
+    rh.initAll()
 
 if __name__ == "__main__":
     app.run()
-
