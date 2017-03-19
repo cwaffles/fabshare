@@ -1,8 +1,5 @@
 #tripSummaries is a list of date strings, start city string, end city string, and trip id (for button)
 
-
-
-
 #Homepage header
 #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
 def generateHomePage(tripSummaries):
@@ -11,22 +8,31 @@ def generateHomePage(tripSummaries):
     #logoAlt = 900
     #repeaterAlt = 198
     #groupAlts = []
-    #
-    # startLocs = []
-    # endLocs = []
-    # dates = []
-    #
-    # #Find number of groups
-    # groupNum = len(tripSummaries)
-    # for n in range(0, groupNum):
-    #     startLocs.append(tripSummaries[n][1]) #will need to change if using Dict input
-    #     endLocs.append(tripSummaries[n][2])
-    #     date = tripSummaries[n][3]
-    #     dates.append(date)
-    #
-    # print(startLocs)
-    # print(endLocs)
-    # print(dates)
+
+    startLocs = []
+    endLocs = []
+    dates = []
+
+    def makeNiceDate(date):
+        date = str.replace(date, '-', '', 2)
+        dateObj = datetime.datetime.strptime(date, '%Y%m%d').date()
+        month = calendar.month_abbr[dateObj.month]
+        day = str(dateObj.day)
+        stringDate = month + ' ' + day
+        return stringDate
+
+    #Find number of groups
+    groupNum = len(tripSummaries)
+    for n in range(0, groupNum):
+        startLocs.append(tripSummaries[n][1]) #will need to change if using Dict input
+        endLocs.append(tripSummaries[n][2])
+        date = makeNiceDate(tripSummaries[n][3][0:10])
+
+        dates.append(date)
+
+    print(startLocs)
+    print(endLocs)
+    print(dates)
 
     HOMEHEAD = """<html>
 
