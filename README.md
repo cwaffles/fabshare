@@ -1,17 +1,17 @@
 # fabshare
 
-###Required packages
+### Required packages
 - flask
 - ipdb
 - requests
 - psycopg2
 
-###Install dependencies
+### Install dependencies
 ```
 pip install flask ipdb requests psycopg2
 ```
 
-###How to launch
+### How to launch
 ```
 python launch.py
 ```
