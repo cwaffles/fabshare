@@ -1,5 +1,8 @@
 #tripSummaries is a list of date strings, start city string, end city string, and trip id (for button)
 
+
+
+
 #Homepage header
 #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
 def generateHomePage(tripSummaries):
@@ -8,27 +11,27 @@ def generateHomePage(tripSummaries):
     #logoAlt = 900
     #repeaterAlt = 198
     #groupAlts = []
-
-    startLocs = []
-    endLocs = []
-    dates = []
-
-    #Find number of groups
-    groupNum = len(tripSummaries)
-    for n in range(0, groupNum):
-        startLocs.append(tripSummaries[n][1]) #will need to change if using Dict input
-        endLocs.append(tripSummaries[n][2])
-        date = tripSummaries[n][3]
-        dates.append(date)
-
-    print(startLocs)
-    print(endLocs)
-    print(dates)
+    #
+    # startLocs = []
+    # endLocs = []
+    # dates = []
+    #
+    # #Find number of groups
+    # groupNum = len(tripSummaries)
+    # for n in range(0, groupNum):
+    #     startLocs.append(tripSummaries[n][1]) #will need to change if using Dict input
+    #     endLocs.append(tripSummaries[n][2])
+    #     date = tripSummaries[n][3]
+    #     dates.append(date)
+    #
+    # print(startLocs)
+    # print(endLocs)
+    # print(dates)
 
     HOMEHEAD = """<html>
 
 <head>
-<title> My First Webpage </title>
+<title> DIVID HOME </title>
 </head>
 
 <body>
@@ -96,38 +99,29 @@ def generateHomePage(tripSummaries):
     <g id="Repeat_Grid_1" data-name="Repeat Grid 1" class="cls-5" transform="translate(23 198)">                            <!-- this is the repeater grid, with specified location -->
 
 
-                                                                <!-- the group (THIS PART REPEATS!)-->
+  """
 
-      <a href="http://www.google.com">     <!-- CHANGE THIS to link to the second page! -->
-        <g id="group" transform="translate(-28 -240)">
+
+    ELEMENT = """
+      <a href="{{URLToID}}">     <!-- CHANGE THIS to link to the second page! -->
+        <g id="group" transform="translate(-28 {{NumberOffset}})">
             <g id="Rectangle_1" data-name="Rectangle 1" class="cls-6" transform="translate(28 240)">
                 <rect class="cls-8" width="330" height="50" rx="25"/>
                 <rect class="cls-1" x="0.5" y="0.5" width="329" height="49" rx="24.5"/>
             </g>                                                                                                                <!-- the text elements follow here -->
-            <text id="StartLoc1" class="cls-7" transform="translate(45 271)"><tspan x="0" y="0">StartLoc1</tspan></text>        <!-- CHANGE THIS START LOCATION TEXT to match trip start -->
-            <text id="DAAATE1" class="cls-7" transform="translate(252 254)"><tspan x="0" y="17">DAAATE1</tspan></text>           <!-- CHANGE THIS DATE TEXT to match trip date -->
-            <text id="to" class="cls-7" transform="translate(136 254)"><tspan x="0" y="17">to</tspan></text>                        <!-- no need to change this -->
-            <text id="EndLoc_1_" data-name="EndLoc 1 " class="cls-7" transform="translate(158 254)"><tspan x="0" y="17">EndLoc 1 </tspan></text> <!-- CHANGE THIS END LOCATION TEXT to match trip -->
+            <text id="{{StartLoc}}" class="cls-7" transform="translate(45 271)"><tspan x="0" y="0">{{StartLoc}}</tspan></text>        <!-- CHANGE THIS START LOCATION TEXT to match trip start -->
+            <text id="{{DAAATE1}}" class="cls-7" transform="translate(252 254)"><tspan x="0" y="17">{{DAAATE1}}</tspan></text>           <!-- CHANGE THIS DATE TEXT to match trip date -->
+            <text id="to" class="cls-7" transform="translate(116 254)"><tspan x="0" y="17">to</tspan></text>                        <!-- no need to change this -->
+            <text id="EndLoc" data-name="{{EndLoc}}" class="cls-7" transform="translate(158 254)"><tspan x="0" y="17">{{EndLoc}} </tspan></text> <!-- CHANGE THIS END LOCATION TEXT to match trip -->
             </g>
       </a>
 
-
-                                                                <!-- Second group: Included as a sample. Take note of the element spacing (translate values compared to the first group) -->
-
-     <a href="http://www.yahoo.com">     <!-- CHANGE THIS to link to the second page! -->
-        <g id="group-2" data-name="group" transform="translate(-28 -170)">
-            <g id="Rectangle_1-2" data-name="Rectangle 1" class="cls-6" transform="translate(28 240)">
-                <rect class="cls-8" width="330" height="50" rx="25"/>
-                <rect class="cls-1" x="0.5" y="0.5" width="329" height="49" rx="24.5"/>
-            </g>
-            <text id="StartLoc2" class="cls-7" transform="translate(45 271)"><tspan x="0" y="0">StartLoc2</tspan></text>
-            <text id="DAAATE2" class="cls-7" transform="translate(252 254)"><tspan x="0" y="17">DAAATE2</tspan></text>
-            <text id="to-2" data-name="to" class="cls-7" transform="translate(136 254)"><tspan x="0" y="17">to</tspan></text>
-            <text id="EndLoc2" class="cls-7" transform="translate(158 254)"><tspan x="0" y="17">EndLoc2</tspan></text>
-        </g>
-      </a>
+"""
 
 
+
+
+    FOOTER = """
 
     </g>
   </g>
@@ -136,8 +130,19 @@ def generateHomePage(tripSummaries):
 </body>
 
 </html>"""
+    from jinja2 import Template
 
-    print(HOMEHEAD)
+    t = Template(ELEMENT)
+    i = 0;
+    print(tripSummaries)
+    for trip in tripSummaries:
+        output = t.render(DAAATE1= trip[1], StartLoc = trip[2], EndLoc = trip[3], NumberOffset = -240 + i * 70 )
+        i = i + 1;
+
+        HOMEHEAD = HOMEHEAD + output;
+
+
+    print(HOMEHEAD + FOOTER);
     return 0
 
 #tripInfoList is a list of fuel-use floats, fuel-price floats, and trip id (for button)

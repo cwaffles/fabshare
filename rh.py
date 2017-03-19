@@ -10,6 +10,7 @@ authToken = 'Bearer 70c22344-e864-45e1-be1c-8b20db5cfb39'
 #Loads summary trip info from Mojio, returns 2d array (list) with summary data by trip
 def loader():
     tripsJSON = getAllTrips()
+    print(tripsJSON)
     allRelData = [] #list for final storage of all relevant data
     for trip in tripsJSON["Data"]:
         #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
