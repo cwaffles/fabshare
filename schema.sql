@@ -1,5 +1,5 @@
 CREATE TABLE user (
-	email	VARCHAR(64)	PRIMARY KEY,
+	email	VARCHAR(64)	PRIMARY KEY
 );
 
 CREATE TABLE vehicle (
