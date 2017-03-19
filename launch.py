@@ -13,9 +13,9 @@ app = Flask(__name__)
 def hello():
     return rh.getIndex()
 
-@app.route("/trips/")
-def tripsIndex():
-    return rh.tripsIndex()
+# @app.route("/trips/")
+# def tripsIndex():
+#     return rh.tripsIndex()
 
 @app.route("/vehicles/")
 def vehiclesIndex():

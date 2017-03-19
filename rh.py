@@ -16,8 +16,8 @@ def getIndex():
 def getTripPage(id):
     return tripsController.index(id)
 
-def getTrips():
-    return str(tripsController.index())
+# def getTrips():
+#     return str(tripsController.index())
 
 def vehiclesIndex():
     return vehiclesController.index()

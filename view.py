@@ -9,7 +9,7 @@ GAS_PRICE = 1.25
 # Homepage header
 # Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
 def generateHomePage(tripSummaries):
-    print(tripSummaries)
+    # print(tripSummaries)
 
     startLocs = []
     endLocs = []
@@ -125,7 +125,7 @@ def generateHomePage(tripSummaries):
 
         HOMEHEAD = HOMEHEAD + output;
 
-    print(HOMEHEAD + FOOTER);
+    # print(HOMEHEAD + FOOTER);
     return (HOMEHEAD + FOOTER)
 
     # tripInfoList is a list of fuel-use floats, fuel-price floats, and trip id (for button)
@@ -234,7 +234,7 @@ def generateTripPage(idR):
 
         output = t.render(consumption='%.2f' % fuelConsumed, fuelCost='%.2f' % cost, UrlToEmail=joker)
 
-        print(output);
+        # print(output)
         return (output)
 
 

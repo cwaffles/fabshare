@@ -6,7 +6,7 @@ import globals
 import db
 import view
 
-junkEmail = "a@a.com"
+junkEmail = "test@test.com"
 
 def init():
     #do all the data loading here
@@ -19,6 +19,18 @@ def index():
     tripSummaries = getTripSummaries(junkEmail)
     print(tripSummaries)
     return view.generateHomePage(tripSummaries)
+
+def getCitiesFromTrip(tripId):
+    cur = globals.__conn.cursor()
+    cur.execute("SELECT startCity, endCity FROM trip WHERE tid = %s", (tripId,))
+
+    returnVal = cur.fetchone()
+
+    globals.__conn.commit()
+
+    print(returnVal)
+
+    return returnVal
 
 def getTripSummaries(userEmail):
     cur = globals.__conn.cursor()
