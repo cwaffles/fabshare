@@ -4,13 +4,15 @@ import ipdb
 from flask import Flask
 app = Flask(__name__)
 
-#rh.sendEmail("joren.Jackson@gmail.com", 14, 5.66, "K. Fab")
+rh.sendEmail("Cash for dash!", "joren.Jackson@gmail.com", 14, 5.66, "K. Fab")
 
 gasPrice = views.getGasPrice("V4L2H3")
 print(gasPrice)
 
 trips = rh.loader()
+Home = views.generateHomePage(trips)
 Home = views.generateTripPage(trips[0])
+#Home = views.generateRequestMoneyPage(trips[0])
 
 #myTrip = 0
 #fuelConsumed = trips['Data'][myTrip]['StartFuelLevel']['Value'] - trips['Data'][0]['EndFuelLevel']['Value']
@@ -27,7 +29,7 @@ initialized = False
 
 @app.route("/")
 def hello():
-    return views.generateTripPage(trips[0])
+    return Home
 
 if __name__ == "__main__":
     app.run()
