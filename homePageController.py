@@ -9,7 +9,6 @@ def index():
     # getTrips()
     return "<html><title></title><body><p>Hello World!</p></body></html>"
 
-
 #Loads summary trip info from Mojio, returns 2d array (list) with summary data by trip
 def loader():
     tripsJSON = getAllTrips()
