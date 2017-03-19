@@ -1,6 +1,9 @@
 #tripSummaries is a list of date strings, start city string, end city string, and trip id (for button)
 import datetime
+import time
 import calendar
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 
 GAS_PRICE = 1.25
 #Homepage header
@@ -269,8 +272,25 @@ def generateTripPage(tripSummaries):
     print(output);
     return (output)
 
-
 def generateRequestMoneyPage(tripIds):
 
     return 0
 
+#Requires Selenium driver for firefox, firefox
+def getGasPrice(zipcode):
+    baseURL = "https://www.gasbuddy.com/"
+    browser = webdriver.Firefox()
+
+    browser.get(baseURL)
+
+    elem = browser.find_element_by_id("search-text").send_keys(zipcode, Keys.ENTER)
+    time.sleep(10)
+    price = browser.find_element_by_class_name("gb-price").text
+
+    price = float(price)
+    if price < 50:
+        price = price / 3.78541
+    else:
+        price = price / 100
+
+    return price

@@ -64,7 +64,7 @@ def sendEmail(emailadd, fuelUsed, costEst, personName):
     server.starttls()
     server.login("dividfabshare@gmail.com", "fabshare")
 
-    msg = "Hey there freeloader,\n\nMY CAR RUNS ON FUEL NOT FRIENDSHIP!\n I used {{gasamount}} liters of fuel so you part is {{Money}}$\n\n" \
+    msg = "Hey there freeloader,\n\nMY CAR RUNS ON FUEL NOT FRIENDSHIP!\n I used {{gasamount}} liters of fuel so your part is {{Money}}$\n\n" \
           "your obedient servant,\n" \
           "{{userName}}"
 

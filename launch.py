@@ -4,11 +4,6 @@ import ipdb
 from flask import Flask
 app = Flask(__name__)
 
-
-
-
-
-
 # ipdb.set_trace() #for debug
 print(rh.nodePort)
 

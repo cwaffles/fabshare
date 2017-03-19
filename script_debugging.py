@@ -6,6 +6,9 @@ app = Flask(__name__)
 
 #rh.sendEmail("joren.Jackson@gmail.com", 14, 5.66, "K. Fab")
 
+gasPrice = views.getGasPrice("V4L2H3")
+print(gasPrice)
+
 trips = rh.loader()
 Home = views.generateTripPage(trips[0])
 
