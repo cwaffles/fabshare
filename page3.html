@@ -1,0 +1,90 @@
+<html>
+
+<head>
+<title> My First Webpage </title>
+  
+</head>
+
+<body>
+<form action="/my-handling-form-page" method="post"> <!-- the "action" defines the location URL that the form's collected data is sent to when data is submitted (through the submit button). the "method" defines how the data is sent to that address (Get or post). For more info see https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms/Sending_and_retrieving_form_data -->
+  
+    <style>
+
+        body{
+            background-color: FCFFF7;
+        }
+       
+        .emailInput {
+
+            line-height: 50px;
+            height: 54px;
+            border-radius: 25px;
+            background-color: FFFFFF;
+            border-color: #95989A;
+
+            font-size: 200%;
+
+            display: block;
+            margin: auto;
+            text-align: center;
+            width: 70%;
+            padding: 10px;
+
+        }
+
+        .submitButton {
+            display: block;
+            margin: auto;
+            text-align: center;
+            width: 70%;
+
+            border-radius: 25px;
+
+            background-color: #F15A24; 
+            color: white;
+            padding: 15px 25px;
+            font-size: 200%;
+
+        }
+        .enterEmail {
+            line-height: 10px;
+            height: 10px;
+            background-color: FFFFFF;
+            font-size: 200%;
+            background-color: FCFFF7;
+
+            font-family: "arial";
+        }
+
+    </style>
+
+    <div >
+        <br>
+        <br>
+        <text id="Send_Messages" data-name="Send Messages" class="enterEmail"> Enter email addresses: </text> 
+        <br>
+        <br>
+        <input type="email" id="mail_one" name="user_mail" class="emailInput"> <!-- email input field 1 -->
+        <br>
+        <input type="email" id="mail_two" name="user_mail_two" class="emailInput"> 
+        <br>
+        <input type="email" id="mail_two" name="user_mail_three" class="emailInput"> 
+        <br>
+        <input type="email" id="mail_two" name="user_mail_four" class="emailInput"> 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    </div>
+
+	<div class="button">
+  		<button type="submit" class="submitButton">Send Messages</button>  <!-- submit button for the emails-->
+	</div>
+
+
+
+</form>
+</body>
+
+</html>
