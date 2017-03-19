@@ -1,19 +1,15 @@
-import requests
 import db
+import homePageController
+import tripController
 
-#server refers to mojio's api
-apiURL = 'https://api.moj.io/v2/'
-authToken = 'Bearer 70c22344-e864-45e1-be1c-8b20db5cfb39'
+def getIndex():
+    return homePageController.index()
+
 
 def getTrips():
-    endpoint = 'trips'
-    headers = {'Authorization': authToken}
-    reqUrl = apiURL + endpoint
-    print(reqUrl)
-    return requests.get(reqUrl, headers=headers).content
+    return str(tripController.index())
 
-def getTestData():
-    return str(db.getTestData())
-
-def init():
+def initAll():
     db.init()
+    homePageController.init()
+    tripController.init()

@@ -1,17 +1,24 @@
 import ipdb
+import globals
 import psycopg2
 
-#db stuff
-dbName = 'fabshare'
-dbUser = 'postgres'
-__conn = None #db connection
+def getID():
+    # Open a cursor to perform database operations
+    cur = globals.__conn.cursor()
+    # Query the database and obtain data as Python objects
+    cur.execute("SELECT id FROM test;")
+    returnVal = cur.fetchone()
+    # returns cur.execute("SELECT * FROM test;")
+    # ipdb.set_trace()
+    cur.close()
+    return returnVal
 
-def testDB():
+def createTestDB():
     returnVal = None
-    conn = psycopg2.connect("dbname=%s user=%s" % (dbName, dbUser))
+    # conn = psycopg2.connect("dbname=%s user=%s" % (globals.dbName, globals.dbUser))
 
     # Open a cursor to perform database operations
-    cur = conn.cursor()
+    cur = globals.__conn.cursor()
 
     # Execute a command: this creates a new table
     cur.execute("CREATE TABLE test (id serial PRIMARY KEY, num integer, data varchar);")
@@ -26,17 +33,17 @@ def testDB():
     # returns cur.execute("SELECT * FROM test;")
 
     # Make the changes to the database persistent
-    conn.commit()
+    globals.__conn.commit()
 
     # Close communication with the database
     cur.close()
-    conn.close()
+    globals.__conn.close()
     return returnVal
 
 def getTestData():
-    print(__conn)
+    print(globals.__conn)
     # Open a cursor to perform database operations
-    cur = __conn.cursor()
+    cur = globals.__conn.cursor()
     # Query the database and obtain data as Python objects
     cur.execute("SELECT * FROM test;")
     returnVal = cur.fetchone()
@@ -47,12 +54,11 @@ def getTestData():
 
 def init():
     # Connect to an existing database
-    global __conn
-    if __conn is None:
-        __conn = psycopg2.connect("dbname=%s user=%s" % (dbName, dbUser))
+    if globals.__conn is None:
+        globals.__conn = psycopg2.connect("dbname=%s user=%s" % (globals.dbUser, globals.dbUser))
 
 
 def shutdown():
     # Close communication with the database
     # ipdb.set_trace() #for debug
-    __conn.close()
+    globals.__conn.close()
