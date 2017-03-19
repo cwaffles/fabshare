@@ -4,15 +4,34 @@ import json
 #custom stuff
 import globals
 import db
+import view
 
-def index():
-    # getTrips()
-    return "<html><title></title><body><p>Hello World!</p></body></html>"
+junkEmail = "test@test.com"
 
 def init():
     #do all the data loading here
-    loadTripsIntoDB("test@test.com")
+    loadTripsIntoDB(junkEmail) #hacky email
     return #stub
+
+
+def index():
+    tripSummaries = getTripSummaries(junkEmail)
+
+    return view.generateHomePage(tripSummaries)
+
+def getTripSummaries(userEmail):
+    cur = globals.__conn.cursor()
+
+    # Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
+    cur.execute("SELECT tid, startCity, endCity, date, distance, efficiency, vid FROM Trip "
+                "NATURAL JOIN human WHERE human.email = %s", (userEmail))
+
+    returnVal = cur.fetchall()
+    globals.__conn.commit()
+
+    cur.close()
+    return returnVal
+
 
 #helper function to make http request
 def getFromAPI(url):
