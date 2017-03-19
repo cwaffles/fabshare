@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 
 trips = rh.loader()
-Home = views.generateHomePage(trips)
+Home = views.generateTripPage(trips[0])
 
 #myTrip = 0
 #fuelConsumed = trips['Data'][myTrip]['StartFuelLevel']['Value'] - trips['Data'][0]['EndFuelLevel']['Value']
@@ -23,7 +23,7 @@ initialized = False
 
 @app.route("/")
 def hello():
-    return views.generateHomePage(trips)
+    return views.generateTripPage(trips[0])
 
 if __name__ == "__main__":
     app.run()
