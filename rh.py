@@ -1,5 +1,5 @@
 import requests
-import subprocess
+import db
 
 #server refers to mojio's api
 apiURL = 'https://api.moj.io/v2/'
@@ -12,8 +12,8 @@ def getTrips():
     print(reqUrl)
     return requests.get(reqUrl, headers=headers).content
 
-
+def getTestData():
+    return str(db.getTestData())
 
 def init():
-
-    return 0
+    db.init()
