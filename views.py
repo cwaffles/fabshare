@@ -131,7 +131,7 @@ def generateHomePage(tripSummaries):
     i = 0;
     print(tripSummaries)
     for trip in tripSummaries:
-        output = t.render(DAAATE1= makeNiceDate(trip[3][0:10]), StartLoc = trip[1], EndLoc = trip[2], NumberOffset = -240 + i * 70 )
+        output = t.render(DAAATE1= makeNiceDate(trip[3][0:10]), StartLoc = trip[1], EndLoc = trip[2], NumberOffset = -250 + i * 60 )
         i = i + 1;
 
         HOMEHEAD = HOMEHEAD + output;

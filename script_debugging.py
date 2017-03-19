@@ -4,7 +4,7 @@ import ipdb
 from flask import Flask
 app = Flask(__name__)
 
-rh.sendEmail("joren.Jackson@gmail.com", 14, 5.66, "K. Fab")
+#rh.sendEmail("joren.Jackson@gmail.com", 14, 5.66, "K. Fab")
 
 trips = rh.loader()
 Home = views.generateHomePage(trips)

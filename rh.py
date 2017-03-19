@@ -4,7 +4,7 @@ import subprocess
 
 #server refers to mojio's api
 apiURL = 'https://api.moj.io/v2/'
-authToken = 'Bearer 53cab099-0e09-4454-8cb7-b9b4e42e4e53'
+authToken = 'Bearer f39d6d3f-9785-44bb-a9f8-65cb2b8fd338'
 
 
 #Loads summary trip info from Mojio, returns 2d array (list) with summary data by trip
@@ -54,3 +54,21 @@ def getEvents(tripID):
 def init():
 
     return 0
+
+def sendEmail(emailadd, fuelUsed, costEst, personName):
+    import email
+    import smtplib
+    from jinja2 import Template
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login("dividfabshare@gmail.com", "fabshare")
+
+    msg = "Hey there freeloader,\n\nMY CAR RUNS ON FUEL NOT FRIENDSHIP!\n I used {{gasamount}} liters of fuel so you part is {{Money}}$\n\n" \
+          "your obedient servant,\n" \
+          "{{userName}}"
+
+    t = Template(msg)
+    output = t.render(gasamount = fuelUsed, Money = costEst, userName = personName)
+    server.sendmail("dividfabshare@gmail.com", emailadd, output)
+    server.quit()
