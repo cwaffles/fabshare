@@ -22,3 +22,5 @@ def getTrips():
 def vehiclesIndex():
     return vehiclesController.index()
 
+def shutdownAll():
+    return
