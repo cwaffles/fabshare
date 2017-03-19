@@ -1,11 +1,7 @@
 import rh
 import homePageController
-import email
-import smtplib
 
-
-
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -34,50 +30,75 @@ def blank():
 
 
 
-def sendCostEmail(emailadd, fuelUsed, costEst, personName):
+def sendCostEmail(inputSubject, emailadd, fuelUsed, costEst, personName):
+    import email
     import smtplib
     from jinja2 import Template
-
-    print(emailadd)
 
     server = smtplib.SMTP('smtp.gmail.com', 587)
     server.starttls()
     server.login("dividfabshare@gmail.com", "fabshare")
 
-    msg = "Hey there freeloader,\n\nMY CAR RUNS ON FUEL NOT FRIENDSHIP!\n I used {{gasamount}} liters of fuel so you part is {{Money}}$\n\n" \
+    msg = "Subject: {{subject}}\n\nHey there freeloader,\n\nMY CAR RUNS ON FUEL NOT FRIENDSHIP!\n I used {{gasamount}} liters of fuel so you part is {{Money}}$\n\n" \
           "your obedient servant,\n" \
           "{{userName}}"
 
     t = Template(msg)
-    output = t.render(gasamount = fuelUsed, Money = costEst, userName = personName)
+
+    output = t.render(subject = inputSubject, gasamount = '%.2f' %fuelUsed, Money = '%.2f' %costEst, userName = personName)
     server.sendmail("dividfabshare@gmail.com", emailadd, output)
+    server.quit()
 
 
 @app.route('/emailTrip/<tid>')
 def send_email(tid):
     tripCities = homePageController.getCitiesFromTrip(tid)
     print(tripCities)
-    return render_template('email.html', startCity=tripCities[0], endCity=tripCities[1])
+    return render_template('email.html', startCity=tripCities[0], endCity=tripCities[1], tripId=tid)
     # return send_from_directory('js', path)
 
 @app.route('/emailSend', methods=['GET', 'POST'])
 def sendEmails():
     if request.method == 'POST':
+        tripSummary = homePageController.getTripSingleSummary(request.form['tid'])
 
-        fuelUsed = "$99"
-        cost = "$100"
-        name = "Anon"
-        print(request.form['user_mail_one'])
+        # print(id)
+        efficiency = float(tripSummary[5])
+        # print(id[4])
+        distance = float(tripSummary[4]) / 1000
+        fuelConsumed = 0.1
+        fuelConsumed = efficiency * distance / 100
 
+        # Calculate cost of gas
+        print(fuelConsumed)
+        import view
+
+        subject = "Your DIVID share from " + tripSummary[1] + " to " + tripSummary[2]
+        cost = fuelConsumed * view.GAS_PRICE
+        name = "Your friend"
+        # print(request.form['user_mail_one'])
+        tripPassengers = 0
         try:
+            
+            #get trip pass
+            if(request.form['user_mail_one'] is not ""):
+                tripPassengers+=1
+            if (request.form['user_mail_two'] is not ""):
+                tripPassengers += 1
+            if (request.form['user_mail_three'] is not ""):
+                tripPassengers += 1
+            if (request.form['user_mail_four'] is not ""):
+                tripPassengers += 1
+            
+                   
             if(request.form['user_mail_one'] is not None):
-                sendCostEmail(request.form['user_mail_one'], fuelUsed, cost, name)
+                sendCostEmail(subject, request.form['user_mail_one'], fuelConsumed, (cost/tripPassengers), name)
             if (request.form['user_mail_two'] is not None):
-                sendCostEmail(request.form['user_mail_two'], fuelUsed, cost, name)
+                sendCostEmail(subject, request.form['user_mail_two'], fuelConsumed, (cost/tripPassengers), name)
             if (request.form['user_mail_three'] is not None):
-                sendCostEmail(request.form['user_mail_three'], fuelUsed, cost, name)
+                sendCostEmail(subject, request.form['user_mail_three'], fuelConsumed, (cost/tripPassengers), name)
             if (request.form['user_mail_four'] is not None):
-                sendCostEmail(request.form['user_mail_four'], fuelUsed, cost, name)
+                sendCostEmail(subject, request.form['user_mail_four'], fuelConsumed, (cost/tripPassengers), name)
         except:
             return 'sent!'
 
