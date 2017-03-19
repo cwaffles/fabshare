@@ -1,6 +1,7 @@
 # tripSummaries is a list of date strings, start city string, end city string, and trip id (for button)
 import datetime
 import calendar
+import homePageController
 
 GAS_PRICE = 1.25
 
@@ -128,14 +129,14 @@ def generateHomePage(tripSummaries):
     return (HOMEHEAD + FOOTER)
 
     # tripInfoList is a list of fuel-use floats, fuel-price floats, and trip id (for button)
-def generateTripPage(id):
+def generateTripPage(idR):
         # Calculate fuel used
 
-
+        id = homePageController.getTripSingleSummary(idR)
         print(id)
         efficiency = float(id[5])
         print(id[4])
-        distance = float(id[4]) / 10
+        distance = float(id[4]) / 1000
         fuelConsumed = 0.1
         fuelConsumed = efficiency * distance / 100
 
