@@ -4,7 +4,7 @@ import subprocess
 
 #server refers to mojio's api
 apiURL = 'https://api.moj.io/v2/'
-authToken = 'Bearer 70c22344-e864-45e1-be1c-8b20db5cfb39'
+authToken = 'Bearer 53cab099-0e09-4454-8cb7-b9b4e42e4e53'
 
 
 #Loads summary trip info from Mojio, returns 2d array (list) with summary data by trip

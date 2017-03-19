@@ -1,11 +1,12 @@
 import rh
 import views
 import ipdb
-
+from flask import Flask
+app = Flask(__name__)
 
 
 trips = rh.loader()
-views.generateHomePage(trips)
+Home = views.generateHomePage(trips)
 
 #myTrip = 0
 #fuelConsumed = trips['Data'][myTrip]['StartFuelLevel']['Value'] - trips['Data'][0]['EndFuelLevel']['Value']
@@ -22,7 +23,7 @@ initialized = False
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return views.generateHomePage(trips)
 
 if __name__ == "__main__":
     app.run()

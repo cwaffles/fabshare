@@ -1,5 +1,6 @@
 #tripSummaries is a list of date strings, start city string, end city string, and trip id (for button)
-
+import datetime
+import calendar
 #Homepage header
 #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
 def generateHomePage(tripSummaries):
@@ -12,14 +13,6 @@ def generateHomePage(tripSummaries):
     startLocs = []
     endLocs = []
     dates = []
-
-    def makeNiceDate(date):
-        date = str.replace(date, '-', '', 2)
-        dateObj = datetime.datetime.strptime(date, '%Y%m%d').date()
-        month = calendar.month_abbr[dateObj.month]
-        day = str(dateObj.day)
-        stringDate = month + ' ' + day
-        return stringDate
 
     #Find number of groups
     groupNum = len(tripSummaries)
@@ -107,7 +100,6 @@ def generateHomePage(tripSummaries):
 
   """
 
-
     ELEMENT = """
       <a href="{{URLToID}}">     <!-- CHANGE THIS to link to the second page! -->
         <g id="group" transform="translate(-28 {{NumberOffset}})">
@@ -117,15 +109,12 @@ def generateHomePage(tripSummaries):
             </g>                                                                                                                <!-- the text elements follow here -->
             <text id="{{StartLoc}}" class="cls-7" transform="translate(45 271)"><tspan x="0" y="0">{{StartLoc}}</tspan></text>        <!-- CHANGE THIS START LOCATION TEXT to match trip start -->
             <text id="{{DAAATE1}}" class="cls-7" transform="translate(252 254)"><tspan x="0" y="17">{{DAAATE1}}</tspan></text>           <!-- CHANGE THIS DATE TEXT to match trip date -->
-            <text id="to" class="cls-7" transform="translate(116 254)"><tspan x="0" y="17">to</tspan></text>                        <!-- no need to change this -->
+            <text id="to" class="cls-7" transform="translate(136 254)"><tspan x="0" y="17">to</tspan></text>                        <!-- no need to change this -->
             <text id="EndLoc" data-name="{{EndLoc}}" class="cls-7" transform="translate(158 254)"><tspan x="0" y="17">{{EndLoc}} </tspan></text> <!-- CHANGE THIS END LOCATION TEXT to match trip -->
             </g>
       </a>
 
 """
-
-
-
 
     FOOTER = """
 
@@ -142,14 +131,23 @@ def generateHomePage(tripSummaries):
     i = 0;
     print(tripSummaries)
     for trip in tripSummaries:
-        output = t.render(DAAATE1= trip[1], StartLoc = trip[2], EndLoc = trip[3], NumberOffset = -240 + i * 70 )
+        output = t.render(DAAATE1= makeNiceDate(trip[3][0:10]), StartLoc = trip[1], EndLoc = trip[2], NumberOffset = -240 + i * 70 )
         i = i + 1;
 
         HOMEHEAD = HOMEHEAD + output;
 
 
     print(HOMEHEAD + FOOTER);
-    return 0
+    return (HOMEHEAD + FOOTER)
+
+def makeNiceDate(date):
+    date = str.replace(date, '-', '', 2)
+    dateObj = datetime.datetime.strptime(date, '%Y%m%d').date()
+    month = calendar.month_abbr[dateObj.month]
+    day = str(dateObj.day)
+    stringDate = month + ' ' + day
+    return stringDate
+
 
 #tripInfoList is a list of fuel-use floats, fuel-price floats, and trip id (for button)
 def generateTripPage(tripSummaries):
