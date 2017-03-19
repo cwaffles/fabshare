@@ -7,6 +7,21 @@ apiURL = 'https://api.moj.io/v2/'
 authToken = 'Bearer 70c22344-e864-45e1-be1c-8b20db5cfb39'
 
 
+#Loads summary trip info from Mojio, returns 2d array (list) with summary data by trip
+def loader():
+    tripsJSON = getAllTrips()
+    allRelData = [] #list for final storage of all relevant data
+    for trip in tripsJSON["Data"]:
+        #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
+        relevantDataList = [trip["Id"],
+                            trip["StartLocation"]["Address"]["City"],
+                            trip["EndLocation"]["Address"]["City"],
+                            trip["StartTimestamp"],
+                            trip["Distance"]["Value"],
+                            trip["FuelEfficiency"]["Value"],
+                            trip["VehicleId"]]
+        allRelData.append(relevantDataList)
+    return(allRelData)
 
 def getFromAPI(url):
     headers = {'Authorization': authToken}
@@ -24,33 +39,6 @@ def getEvents(tripID):
     response = json.loads(getFromAPI(url))
     print(type(response))
     return response
-
-
-def loader():
-    print(getAllTrips())
-    tripsJSON = getAllTrips()
-    allRelData = []
-    for trip in tripsJSON["Data"]:
-        #Trip ID // Start City // End City // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
-        relevantDataList = [trip["Id"],
-                            trip["StartLocation"]["Address"]["City"],
-                            trip["StartLocation"]["Address"]["City"],
-                            trip["Distance"]["Value"],
-                            trip["FuelEfficiency"]["Value"],
-                            trip["VehicleId"]]
-        #Print statement - replace with insert?
-        print(relevantDataList)
-        allRelData.append(relevantDataList)
-    #Can also insert all the compiled data here
-    print(allRelData)
-
-
-
-
-##def get
-
-
-
 
 def init():
 
