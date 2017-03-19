@@ -14,6 +14,8 @@ def loader():
     allRelData = [] #list for final storage of all relevant data
     for trip in tripsJSON["Data"]:
         #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
+
+
         relevantDataList = [trip["Id"],
                             trip["StartLocation"]["Address"]["City"],
                             trip["EndLocation"]["Address"]["City"],
@@ -22,6 +24,7 @@ def loader():
                             trip["FuelEfficiency"]["Value"],
                             trip["VehicleId"]]
         allRelData.append(relevantDataList)
+        print(tripsJSON)
     return(allRelData)
 
 def getFromAPI(url):
@@ -44,3 +47,32 @@ def getEvents(tripID):
 def init():
 
     return 0
+
+
+
+
+
+
+
+
+
+
+
+def sendEmail(emailadd, fuelUsed, costEst, personName):
+    import email
+    import smtplib
+    from jinja2 import Template
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login("dividfabshare@gmail.com", "fabshare")
+
+    msg = "Hey there freeloader,\n\nMY CAR RUNS ON FUEL NOT FRIENDSHIP!\n I used {{gasamount}} liters of fuel so you part is {{Money}}$\n\n" \
+          "your obedient servant,\n" \
+          "{{userName}}"
+
+    t = Template(msg)
+    output = t.render(gasamount = fuelUsed, Money = costEst, userName = personName)
+    server.sendmail("dividfabshare@gmail.com", emailadd, output)
+    server.quit()
+
