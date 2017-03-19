@@ -264,7 +264,7 @@ def generateTripPage(tripSummaries):
     from jinja2 import Template
 
     t = Template(PAGE)
-    output = t.render(consumption=fuelConsumed, fuelCost=cost)
+    output = t.render(consumption='%.2f' % fuelConsumed, fuelCost= '%.2f' % cost)
 
     print(output);
     return (output)
