@@ -14,9 +14,19 @@ def loader():
     allRelData = [] #list for final storage of all relevant data
     for trip in tripsJSON["Data"]:
         #Trip ID // Start City // End City // Start Timestamp // Distance[m] // Fuel Efficiency[km/L]// Vehicle ID
+        #Exceptions for if no usable address data
+        try:
+            StartLocation = trip["StartLocation"]["Address"]["City"]
+        except:
+            StartLocation = "Somewhere"
+        try:
+            EndLocation = trip["EndLocation"]["Address"]["City"]
+        except:
+            EndLocation = "Somewhere"
+
         relevantDataList = [trip["Id"],
-                            trip["StartLocation"]["Address"]["City"],
-                            trip["EndLocation"]["Address"]["City"],
+                            StartLocation,
+                            EndLocation,
                             trip["StartTimestamp"],
                             trip["Distance"]["Value"],
                             trip["FuelEfficiency"]["Value"],
