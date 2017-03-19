@@ -229,8 +229,8 @@ def generateTripPage(idR):
         t = Template(PAGE)
 
         JokeURL = Template(
-            """https://www.google.ca/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q={{Number}}/5&*""")
-        joker = JokeURL.render(Number='%.2f' % cost)
+            """/emailTrip/{{ids}}""")
+        joker = JokeURL.render(ids=idR)
 
         output = t.render(consumption='%.2f' % fuelConsumed, fuelCost='%.2f' % cost, UrlToEmail=joker)
 
