@@ -1,4 +1,3 @@
-import db
 import rh
 from flask import Flask
 app = Flask(__name__)
@@ -7,10 +6,14 @@ app = Flask(__name__)
 def hello():
     return rh.getIndex()
 
+@app.route("/trips/")
+def tripsIndex():
+    return rh.tripsIndex()
 
 @app.route("/vehicles/")
 def vehiclesIndex():
-    return "Vehicles homepage"
+    return rh.vehiclesIndex()
+
 
 @app.before_first_request
 def init():

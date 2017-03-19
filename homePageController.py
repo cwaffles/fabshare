@@ -8,6 +8,6 @@ def index():
     # getTrips()
     return "<html><title></title><body><p>Hello World!</p></body></html>"
 
-
 def init():
-    return
+    #do all the data loading here
+    return #stub
