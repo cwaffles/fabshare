@@ -10,6 +10,10 @@ def hello():
 def testDB():
     return str(rh.getTestData())
 
+@app.route("/vehicles/")
+def vehiclesIndex():
+    return "Vehicles homepage"
+
 @app.before_first_request
 def init():
     rh.init()
